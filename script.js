@@ -3,7 +3,6 @@ var getWeatherBtn = document.getElementById("user-form")
 //when you have a form with submit inside you have to put event listener on form
 var cityInput = document.getElementById("city")
 //template literal so you dont have to concatenate
-//var fiveDayUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`
 var resultsContainer = document.getElementById("results")
 var fiveDayContainer = document.getElementById("five-day")
 // var latitude
@@ -52,23 +51,29 @@ function getCurrentWeather(city) {
                 resultsContainer.append(windSpeed)
                 resultsContainer.append("Humidity: ")
                 resultsContainer.append(humidity)
+                
+                var lat = data.coord.lat
+                var lon = data.coord.lon
+                getFutureWeather(lat, lon)
         });
 };
 
 
-// function getFutureWeather(city) {
-//     fetch(fiveDayUrl) //returns response
-//     .then(function (response) {
-//         return response.json()
+function getFutureWeather(lat, lon) {
+    var fiveDayUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`
+    fetch(fiveDayUrl)
+    .then(function (response) {
+        return response.json()
     
-//     }) .then(function (data) {
-//         console.log(data)
+    }) .then(function (data) {
+        console.log(data)
                 
-//     });
-// };
+    });
+};
 
 function handleSearchSubmit(event) {
     console.log('clicked')
+    resultsContainer.textContent = '' // clears out last weather
     event.preventDefault() //event is deprecated under some circumstances, so e is preferred
     if (!cityInput.value) { //so that it doesn't do anything if there is no input
         return
@@ -76,7 +81,7 @@ function handleSearchSubmit(event) {
         var city = cityInput.value.trim() //searchInput is an HTML element and so .value is input
         //.trim bc white space can sometimes mess up databases
         getCurrentWeather(city) //calls function as city as parameter
-        getFutureWeather(ciy)
+        getFutureWeather(lat, lon)
         cityInput.value = '' //clears search box by creating empty string
     }
 }
