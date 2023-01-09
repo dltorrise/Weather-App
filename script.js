@@ -5,12 +5,22 @@ var cityInput = document.getElementById("city")
 //template literal so you dont have to concatenate
 var resultsContainer = document.getElementById("results")
 var fiveDayContainer = document.getElementById("five-day")
+var searchHistory = document.getElementById("search-history")
 // var latitude
 // var longitude
+
+const history = []//makes an array
+
+//if there is a local storage then it can't be local storage
+
+history.push("Paris")
+
 console.log(resultsContainer)
 
 
 console.log('Hello')
+
+
 
 function getCurrentWeather(city) {
     console.log(city)
@@ -23,7 +33,7 @@ function getCurrentWeather(city) {
         //city name, the date, an icon representation of weather conditions, 
         //the temperature, the humidity, and the wind speed
         console.log(data)
-            //Creating a h3 element and a p element
+                //Creating elements
                 var cityName = document.createElement('h3');
                 var icon = document.createElement('img');
                 icon.classList.add("icon") //add icon class
@@ -31,7 +41,7 @@ function getCurrentWeather(city) {
                 var humidity = document.createElement('p');
                 var windSpeed = document.createElement('p');
     
-            //Setting the text of the h3 element and p element.
+                //Setting the text of the h3 element and p element.
                 cityName.textContent = data.name
                 iconName = data.weather.icon
                 //icon.src = `https://openweathermap.org/img/wn/${iconName}@2x.png`;
@@ -40,9 +50,8 @@ function getCurrentWeather(city) {
                 humidity.textContent = data.main.humidity
 
                 console.log(temperature);
-   
-            //Appending the dynamically generated html to the div associated with the id="users"
-            //Append will attach the element as the bottom most child.
+
+                //appends onto screen
                 resultsContainer.append("City Name: " + city);
                 resultsContainer.append(icon)
                 resultsContainer.append("Temperature: ")
@@ -52,24 +61,41 @@ function getCurrentWeather(city) {
                 resultsContainer.append("Humidity: ")
                 resultsContainer.append(humidity)
                 
-                var lat = data.coord.lat
-                var lon = data.coord.lon
-                getFutureWeather(lat, lon)
+                //future weather function
+                //var lat = data.coord.lat
+                //var lon = data.coord.lon
+                //getFutureWeather(lat, lon)
+
+                //local storage
+                console.log(typeof history)
+                var sHistory = history.push(city) // pushes city into array
+                console.log(typeof sHistory)
+                localStorage.setItem("searchHistory", JSON.stringify(sHistory)) // puts history array in local storage
+                //showSearchHistory()
+
         });
 };
 
+//showSearchHistory()
 
-function getFutureWeather(lat, lon) {
-    var fiveDayUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`
-    fetch(fiveDayUrl)
-    .then(function (response) {
-        return response.json()
+
+// function showSearchHistory() {
+//     history = JSON.parse(localStorage.getItem("searchHistory"))
+//     searchHistory.textContent = "Search History: " + history
+// }
+
+// function getFutureWeather(lat, lon) {
+//     var fiveDayUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`
+//     fetch(fiveDayUrl)
+//     .then(function (response) {
+//         return response.json()
     
-    }) .then(function (data) {
-        console.log(data)
+//     }) .then(function (data) {
+//         console.log(data)
+//         //just need to append onto screen
                 
-    });
-};
+//     });
+// };
 
 function handleSearchSubmit(event) {
     console.log('clicked')
@@ -81,7 +107,7 @@ function handleSearchSubmit(event) {
         var city = cityInput.value.trim() //searchInput is an HTML element and so .value is input
         //.trim bc white space can sometimes mess up databases
         getCurrentWeather(city) //calls function as city as parameter
-        getFutureWeather(lat, lon)
+        //getFutureWeather(lat, lon)
         cityInput.value = '' //clears search box by creating empty string
     }
 }
