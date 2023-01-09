@@ -68,9 +68,9 @@ function getCurrentWeather(city) {
 
                 //local storage
                 console.log(typeof history)
-                var sHistory = history.push(city) // pushes city into array
-                console.log(typeof sHistory)
-                localStorage.setItem("searchHistory", JSON.stringify(sHistory)) // puts history array in local storage
+                history = history.push(city) // pushes city into array
+                console.log(typeof history)
+                localStorage.setItem("searchHistory", JSON.stringify(history)) // puts history array in local storage
                 //showSearchHistory()
 
         });
