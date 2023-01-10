@@ -9,13 +9,16 @@ var searchHistory = document.getElementById("search-history")
 // var latitude
 // var longitude
 
-const history = []//makes an array
+if (localStorage.getItem("searchHistory")) {
+    const history = JSON.parse(localStorage.getItem("searchHistory")) // need to parse into array
+} else {
+    const history = []//makes an array
+}
+console.log(history)
 
 //if there is a local storage then it can't be local storage
 
-history.push("Paris")
 
-console.log(resultsContainer)
 
 
 console.log('Hello')
@@ -68,21 +71,22 @@ function getCurrentWeather(city) {
 
                 //local storage
                 console.log(typeof history)
-                history = history.push(city) // pushes city into array
-                console.log(typeof history)
+                console.log(history)
+                history.push(city) // pushes city into array don't have to reassign them bc mutable
+                console.log(typeof history) // will always say it's object if it's an array
                 localStorage.setItem("searchHistory", JSON.stringify(history)) // puts history array in local storage
-                //showSearchHistory()
+                showSearchHistory()
 
         });
 };
 
-//showSearchHistory()
+showSearchHistory()
 
 
-// function showSearchHistory() {
-//     history = JSON.parse(localStorage.getItem("searchHistory"))
-//     searchHistory.textContent = "Search History: " + history
-// }
+function showSearchHistory() {
+    history = JSON.parse(localStorage.getItem("searchHistory"))
+    searchHistory.textContent = "Search History: " + history
+}
 
 // function getFutureWeather(lat, lon) {
 //     var fiveDayUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`
