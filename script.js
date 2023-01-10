@@ -1,3 +1,5 @@
+
+
 var apiKey = "9ffe19106208ff88d659686f2e903261"
 var getWeatherBtn = document.getElementById("user-form")
 //when you have a form with submit inside you have to put event listener on form
@@ -9,12 +11,13 @@ var searchHistory = document.getElementById("search-history")
 // var latitude
 // var longitude
 
-if (localStorage.getItem("searchHistory")) {
-    const history = JSON.parse(localStorage.getItem("searchHistory")) // need to parse into array
-} else {
-    const history = []//makes an array
+let histoire = JSON.parse(localStorage.getItem("searchHistory")) //makes an array
+
+if (histoire===null) {
+    histoire = []
 }
-console.log(history)
+
+console.log(histoire)
 
 //if there is a local storage then it can't be local storage
 
@@ -70,11 +73,11 @@ function getCurrentWeather(city) {
                 //getFutureWeather(lat, lon)
 
                 //local storage
-                console.log(typeof history)
-                console.log(history)
-                history.push(city) // pushes city into array don't have to reassign them bc mutable
-                console.log(typeof history) // will always say it's object if it's an array
-                localStorage.setItem("searchHistory", JSON.stringify(history)) // puts history array in local storage
+                console.log(typeof histoire)
+                console.log(histoire)
+                histoire.push(city) // pushes city into array don't have to reassign them bc mutable
+                console.log(typeof histoire) // will always say it's object if it's an array
+                localStorage.setItem("searchHistory", JSON.stringify(histoire)) // puts history array in local storage
                 showSearchHistory()
 
         });
@@ -84,8 +87,7 @@ showSearchHistory()
 
 
 function showSearchHistory() {
-    history = JSON.parse(localStorage.getItem("searchHistory"))
-    searchHistory.textContent = "Search History: " + history
+    searchHistory.textContent = "Search History: " + histoire
 }
 
 // function getFutureWeather(lat, lon) {
