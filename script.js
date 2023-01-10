@@ -88,8 +88,8 @@ showSearchHistory()
 
 function showSearchHistory() {
     searchHistory.textContent = "Search History"
-    var listOfCities = document.createElement('ul')
-    searchHistory.appendChild(listOfCities)
+    var listOfCities = document.createElement('ul') //creates box for list
+    searchHistory.appendChild(listOfCities) //appends it to search container
     for (i=0; i<histoire.length; i++) {
         var nameOfCity = document.createElement('li')
         nameOfCity.addEventListener("click", buttonClickHandler)
@@ -114,8 +114,8 @@ function showSearchHistory() {
 // };
 
 function handleSearchSubmit(event) {
-    console.log('clicked')
     resultsContainer.textContent = '' // clears out last weather
+    console.log('clicked')
     event.preventDefault() //event is deprecated under some circumstances, so e is preferred
     if (!cityInput.value) { //so that it doesn't do anything if there is no input
         return
@@ -139,3 +139,11 @@ searchHistory.addEventListener("click", buttonClickHandler)
 
 /*user is searching for city, give current data, give 5 day forecast, save their
 search history as buttons, let them click buttons to go back to see weather again */
+
+//main issues
+//getting the search results to work correctly
+//rendering the icon
+
+//easy stuff (though potentially time consuming)
+//rendering five day results
+//formatting
