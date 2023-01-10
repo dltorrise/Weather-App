@@ -87,7 +87,16 @@ showSearchHistory()
 
 
 function showSearchHistory() {
-    searchHistory.textContent = "Search History: " + histoire
+    searchHistory.textContent = "Search History"
+    var listOfCities = document.createElement('ul')
+    searchHistory.appendChild(listOfCities)
+    for (i=0; i<histoire.length; i++) {
+        var nameOfCity = document.createElement('li')
+        nameOfCity.textContent = histoire[i]
+        nameOfCity.setAttribute('data-city', histoire[i].value)
+        console.log(nameOfCity.data-city)
+        listOfCities.appendChild(nameOfCity)
+    }
 }
 
 // function getFutureWeather(lat, lon) {
@@ -118,8 +127,14 @@ function handleSearchSubmit(event) {
     }
 }
 
+var buttonClickHandler = function (event) {
+    var pastResult = event.target.getAttribute('data-city');
+  
+    getCurrentWeather(pastResult)
+  };
 
 getWeatherBtn.addEventListener("submit", handleSearchSubmit) //button inside of form needs to be submit
+searchHistory.addEventListener("submit", buttonClickHandler)
 
 /*user is searching for city, give current data, give 5 day forecast, save their
 search history as buttons, let them click buttons to go back to see weather again */
