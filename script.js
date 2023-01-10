@@ -49,7 +49,7 @@ function getCurrentWeather(city) {
     
                 //Setting the text of the h3 element and p element.
                 cityName.textContent = data.name
-                iconName = data.weather.icon
+                //iconName = data.weather.icon
                 //icon.src = `https://openweathermap.org/img/wn/${iconName}@2x.png`;
                 temperature.textContent = data.main.temp;
                 windSpeed.textContent = data.wind.speed
@@ -59,7 +59,7 @@ function getCurrentWeather(city) {
 
                 //appends onto screen
                 resultsContainer.append("City Name: " + city);
-                resultsContainer.append(icon)
+                //resultsContainer.append(icon)
                 resultsContainer.append("Temperature: ")
                 resultsContainer.append(temperature)
                 resultsContainer.append("Wind Speed: ")
@@ -92,9 +92,10 @@ function showSearchHistory() {
     searchHistory.appendChild(listOfCities)
     for (i=0; i<histoire.length; i++) {
         var nameOfCity = document.createElement('li')
+        nameOfCity.addEventListener("click", buttonClickHandler)
         nameOfCity.textContent = histoire[i]
-        nameOfCity.setAttribute('data-city', histoire[i].value)
-        console.log(nameOfCity.data-city)
+        nameOfCity.setAttribute('data-city', histoire[i])
+        console.log(nameOfCity.getAttribute('data-city'))
         listOfCities.appendChild(nameOfCity)
     }
 }
@@ -129,12 +130,12 @@ function handleSearchSubmit(event) {
 
 var buttonClickHandler = function (event) {
     var pastResult = event.target.getAttribute('data-city');
-  
+    console.log(pastResult)
     getCurrentWeather(pastResult)
   };
 
 getWeatherBtn.addEventListener("submit", handleSearchSubmit) //button inside of form needs to be submit
-searchHistory.addEventListener("submit", buttonClickHandler)
+searchHistory.addEventListener("click", buttonClickHandler)
 
 /*user is searching for city, give current data, give 5 day forecast, save their
 search history as buttons, let them click buttons to go back to see weather again */
