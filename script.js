@@ -68,9 +68,9 @@ function getCurrentWeather(city) {
                 resultsContainer.append(humidity)
                 
                 //future weather function
-                //var lat = data.coord.lat
-                //var lon = data.coord.lon
-                //getFutureWeather(lat, lon)
+                var lat = data.coord.lat
+                var lon = data.coord.lon
+                getFutureWeather(lat, lon)
 
                 //local storage
                 console.log(typeof histoire)
@@ -100,18 +100,46 @@ function showSearchHistory() {
     }
 }
 
-// function getFutureWeather(lat, lon) {
-//     var fiveDayUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`
-//     fetch(fiveDayUrl)
-//     .then(function (response) {
-//         return response.json()
-    
-//     }) .then(function (data) {
-//         console.log(data)
-//         //just need to append onto screen
+function getFutureWeather(lat, lon) {
+    var fiveDayUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`
+    fetch(fiveDayUrl)
+    .then(function (response) {
+        return response.json()
+     }) .then(function (data) {
+        console.log(data)
+ //just need to append onto screen
+        for (i=0; i<5; i++) {
+            //Creating elements
+            var date = document.createElement('h3');
+            var icon = document.createElement('img');
+            icon.classList.add("icon") //add icon class
+            var temperature = document.createElement('p');
+            var humidity = document.createElement('p');
+            var windSpeed = document.createElement('p');
+
+            //Setting the text of the h3 element and p element.
+            date.textContent = data.list[i].dt_txt
+            //iconName = data.weather.icon
+            //icon.src = `https://openweathermap.org/img/wn/${iconName}@2x.png`;
+            temperature.textContent = data.list[i].main.temp;
+            windSpeed.textContent = data.list[i].wind.speed
+            humidity.textContent = data.list[i].main.humidity
+
+            console.log(temperature);
+
+            //appends onto screen
+            resultsContainer.append("Date: " + date);
+            //resultsContainer.append(icon)
+            resultsContainer.append("Temperature: ")
+            resultsContainer.append(temperature)
+            resultsContainer.append("Wind Speed: ")
+            resultsContainer.append(windSpeed)
+            resultsContainer.append("Humidity: ")
+            resultsContainer.append(humidity)
+        }
                 
-//     });
-// };
+     });
+};
 
 function handleSearchSubmit(event) {
     resultsContainer.textContent = '' // clears out last weather
