@@ -1,9 +1,6 @@
-
-//things left to do 
-//getting the search results to work correctly
-//rendering the icon
-//formatting
-//readme
+//In terms of the MVP, everything is good except for the search
+//I also want to do some work on the formatting though
+//organize folders and read me 
 
 //just for fun
 
@@ -64,7 +61,7 @@ function getCurrentWeather(city) {
         console.log(data)
                 //Creating elements
                 var icon1 = document.createElement('img');
-                var weatherDescription = document.createElement('p')
+                var weatherDescription = document.createElement('i')
                 icon1.classList.add("icon-one") //to make this one bigger
                 var temperature = document.createElement('p');
                 var humidity = document.createElement('p');
@@ -147,7 +144,6 @@ function getFutureWeather(lat, lon) {
         var dates = [tomorrow.format('MMM D'), dayAfterTomorrow.format('MMM D'), dayAfterThat.format('MMM D'), andTheDayAfterThat.format('MMM D')] //maybe not the dryest method
         console.log(dates)
         var fiveDayForecast = document.createElement('h3')
-        fiveDayForecast.innerHTML = ''
         fiveDayForecast.innerHTML = "Next Four Days"
         fiveDayForecast.classList.add("text-center")
         fiveDayContainer.appendChild(fiveDayForecast)
@@ -157,7 +153,8 @@ function getFutureWeather(lat, lon) {
             weatherContainer.classList.add("card", "col-md-6", "text-center")
             //Creating elements
             var date = document.createElement('h5');
-            var weatherDescription = document.createElement('p')
+            var weatherDescription = document.createElement('i')
+            weatherDescription.classList.add("mb-1") //trying to add a lower margin
             var icon1 = document.createElement('img');
             var temperature = document.createElement('p');
             var humidity = document.createElement('p');
@@ -210,6 +207,8 @@ function handleSearchSubmit(event) {
 
 var buttonClickHandler = function (event) {
     var pastResult = event.target.getAttribute('data-city');
+    resultsContainer.textContent = ''
+    fiveDayContainer.textContent = ''
     console.log(pastResult)
     getCurrentWeather(pastResult)
   };
