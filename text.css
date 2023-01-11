@@ -1,10 +1,1 @@
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-#search-history {
-    margin-top: 50px;
-}
 

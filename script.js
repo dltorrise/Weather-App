@@ -3,20 +3,22 @@
 //getting the search results to work correctly
 //rendering the icon
 //formatting
+//readme
 
 //DOM elements
 
 var apiKey = "9ffe19106208ff88d659686f2e903261"
 var getWeatherBtn = document.getElementById("user-form") //when you have a form with submit inside you have to put event listener on form
-var cityInput = document.getElementById("city") //template literal so you dont have to concatenate
+var cityInput = document.getElementById("city") 
 var resultsContainer = document.getElementById("results")
 var fiveDayContainer = document.getElementById("five-day")
 var searchHistory = document.getElementById("search-history")
 
+
+//variables
 //histoire is the french word for history. I cannot use history bc apparently
 //it is a keyword in the console
 
-//variables
 
 let histoire = JSON.parse(localStorage.getItem("searchHistory")) //makes an array
 
@@ -48,7 +50,8 @@ function getCurrentWeather(city) {
                 var windSpeed = document.createElement('p');
     
                 //Setting the text of the h3 element and p element.
-                cityName.textContent = data.name
+                cityName.textContent = city
+                cityName.classList.add("h4")
                 //iconName = data.weather.icon
                 //icon.setAttribute("style", "content: iconName")
                 //icon.src = `https://openweathermap.org/img/wn/${iconName}@2x.png`;
@@ -59,7 +62,8 @@ function getCurrentWeather(city) {
                 console.log(temperature);
 
                 //appends onto screen
-                resultsContainer.append("City Name: " + city);
+                resultsContainer.classList.add("card", "container")
+                resultsContainer.append(city)
                 //resultsContainer.append(icon)
                 resultsContainer.append("Temperature: ")
                 resultsContainer.append(temperature)
@@ -87,10 +91,16 @@ function getCurrentWeather(city) {
 
 function showSearchHistory() {
     searchHistory.textContent = "Search History"
+    searchHistory.classList.add("h5", ".text-primary")
     var listOfCities = document.createElement('ul') //creates box for list
     searchHistory.appendChild(listOfCities) //appends it to search container
     for (i=0; i<histoire.length; i++) {
+        if (histoire.length>5) {
+          histoire.shift() //removes first element  
+        }
         var nameOfCity = document.createElement('li')
+        nameOfCity.classList.add("list-group-item")
+        //nameOfCity.setAttribute("style", "list-style-type: circle")
         nameOfCity.addEventListener("click", buttonClickHandler)
         nameOfCity.textContent = histoire[i]
         nameOfCity.setAttribute('data-city', histoire[i])
@@ -111,23 +121,24 @@ function getFutureWeather(lat, lon) {
         console.log(tomorrow)
         var dayAfterTomorrow = today.add(2, 'day');
         var dayAfterThat = today.add(3, 'day')
-        var andTheDayAfterThat = today.add(3, 'day')
+        var andTheDayAfterThat = today.add(4, 'day')
         var dates = [today.format('M-D-YY'), tomorrow.format('M-D-YY'), dayAfterTomorrow.format('M-D-YY'), dayAfterThat.format('M-D-YY'), andTheDayAfterThat.format('M-D-YY')] //maybe not the dryest method
         console.log(dates)
         for (i=0; i<5; i++) {
             //Creating a weather container div
             var weatherContainer = document.createElement('div');
+            weatherContainer.classList.add("card", "row", "col-md-6")
             //Creating elements
-            var date = document.createElement('h3');
-            //var icon = document.createElement('img');
-            //icon.classList.add("icon") //add icon class
+            var date = document.createElement('h5');
+            var icon = document.createElement('img');
+            icon.classList.add("icon") //add icon class
             var temperature = document.createElement('p');
             var humidity = document.createElement('p');
             var windSpeed = document.createElement('p');
             //setting the text of the h3 element and p element.
             date.textContent = dates[i];
-            //iconName = data.list.weather.icon
-            //icon.src = `https://openweathermap.org/img/wn/${iconName}@2x.png`;
+            //iconName = data.list.weather[3]
+            //icon.src = `https://openweathermap.org/img/wn/${iconName}.png`
             temperature.textContent = data.list[i].main.temp;
             windSpeed.textContent = data.list[i].wind.speed;
             humidity.textContent = data.list[i].main.humidity;
@@ -138,7 +149,7 @@ function getFutureWeather(lat, lon) {
             weatherContainer.appendChild(windSpeed);
             weatherContainer.appendChild(humidity);
             //append the weather container div to results container
-            resultsContainer.appendChild(weatherContainer);
+            fiveDayContainer.appendChild(weatherContainer);
         }
                 
      });
