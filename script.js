@@ -8,8 +8,6 @@ var cityInput = document.getElementById("city")
 var resultsContainer = document.getElementById("results")
 var fiveDayContainer = document.getElementById("five-day")
 var searchHistory = document.getElementById("search-history")
-// var latitude
-// var longitude
 
 let histoire = JSON.parse(localStorage.getItem("searchHistory")) //makes an array
 
@@ -18,11 +16,6 @@ if (histoire===null) {
 }
 
 console.log(histoire)
-
-//if there is a local storage then it can't be local storage
-
-
-
 
 console.log('Hello')
 
@@ -41,15 +34,16 @@ function getCurrentWeather(city) {
         console.log(data)
                 //Creating elements
                 var cityName = document.createElement('h3');
-                var icon = document.createElement('img');
-                icon.classList.add("icon") //add icon class
+                //var icon = document.createElement('img');
+                //icon.classList.add("icon") //add icon class
                 var temperature = document.createElement('p');
                 var humidity = document.createElement('p');
                 var windSpeed = document.createElement('p');
     
                 //Setting the text of the h3 element and p element.
                 cityName.textContent = data.name
-                iconName = data.weather.icon
+                //iconName = data.weather.icon
+                //icon.setAttribute("style", "content: iconName")
                 //icon.src = `https://openweathermap.org/img/wn/${iconName}@2x.png`;
                 temperature.textContent = data.main.temp;
                 windSpeed.textContent = data.wind.speed
@@ -107,7 +101,6 @@ function getFutureWeather(lat, lon) {
         return response.json()
      }) .then(function (data) {
         console.log(data)
- //just need to append onto screen
         var today = dayjs()
         var tomorrow = today.add(1, 'day');
         console.log(tomorrow)
@@ -121,14 +114,14 @@ function getFutureWeather(lat, lon) {
             var weatherContainer = document.createElement('div');
             //Creating elements
             var date = document.createElement('h3');
-            var icon = document.createElement('img');
-            icon.classList.add("icon") //add icon class
+            //var icon = document.createElement('img');
+            //icon.classList.add("icon") //add icon class
             var temperature = document.createElement('p');
             var humidity = document.createElement('p');
             var windSpeed = document.createElement('p');
             //setting the text of the h3 element and p element.
             date.textContent = dates[i];
-            //iconName = data.weather.icon
+            //iconName = data.list.weather.icon
             //icon.src = `https://openweathermap.org/img/wn/${iconName}@2x.png`;
             temperature.textContent = data.list[i].main.temp;
             windSpeed.textContent = data.list[i].wind.speed;
