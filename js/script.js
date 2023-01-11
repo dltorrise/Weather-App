@@ -100,11 +100,15 @@ function getCurrentWeather(city) {
                 //local storage
                 console.log(typeof histoire)
                 console.log(histoire)
-                histoire.push(city) // pushes city into array don't have to reassign them bc mutable
+                 // pushes city into array don't have to reassign them bc mutable
                 console.log(typeof histoire) // will always say it's object if it's an array
-                localStorage.setItem("searchHistory", JSON.stringify(histoire)) // puts history array in local storage
-                showSearchHistory()
-
+                if (histoire.includes(city)){
+                    return
+                } else {
+                    histoire.push(city)
+                    localStorage.setItem("searchHistory", JSON.stringify(histoire)) // puts history array in local storage
+                    showSearchHistory()
+                }
         });
 };
 
