@@ -49,7 +49,7 @@ function getCurrentWeather(city) {
     
                 //Setting the text of the h3 element and p element.
                 cityName.textContent = data.name
-                //iconName = data.weather.icon
+                iconName = data.weather.icon
                 //icon.src = `https://openweathermap.org/img/wn/${iconName}@2x.png`;
                 temperature.textContent = data.main.temp;
                 windSpeed.textContent = data.wind.speed
@@ -108,7 +108,17 @@ function getFutureWeather(lat, lon) {
      }) .then(function (data) {
         console.log(data)
  //just need to append onto screen
+        var today = dayjs()
+        var tomorrow = today.add(1, 'day');
+        console.log(tomorrow)
+        var dayAfterTomorrow = today.add(2, 'day');
+        var dayAfterThat = today.add(3, 'day')
+        var andTheDayAfterThat = today.add(3, 'day')
+        var dates = [today.format('M-D-YY'), tomorrow.format('M-D-YY'), dayAfterTomorrow.format('M-D-YY'), dayAfterThat.format('M-D-YY'), andTheDayAfterThat.format('M-D-YY')] //maybe not the dryest method
+        console.log(dates)
         for (i=0; i<5; i++) {
+            //Creating a weather container div
+            var weatherContainer = document.createElement('div');
             //Creating elements
             var date = document.createElement('h3');
             var icon = document.createElement('img');
@@ -116,26 +126,21 @@ function getFutureWeather(lat, lon) {
             var temperature = document.createElement('p');
             var humidity = document.createElement('p');
             var windSpeed = document.createElement('p');
-
-            //Setting the text of the h3 element and p element.
-            date.textContent = data.list[i].dt_txt
+            //setting the text of the h3 element and p element.
+            date.textContent = dates[i];
             //iconName = data.weather.icon
             //icon.src = `https://openweathermap.org/img/wn/${iconName}@2x.png`;
             temperature.textContent = data.list[i].main.temp;
-            windSpeed.textContent = data.list[i].wind.speed
-            humidity.textContent = data.list[i].main.humidity
-
-            console.log(temperature);
-
-            //appends onto screen
-            resultsContainer.append("Date: " + date);
-            //resultsContainer.append(icon)
-            resultsContainer.append("Temperature: ")
-            resultsContainer.append(temperature)
-            resultsContainer.append("Wind Speed: ")
-            resultsContainer.append(windSpeed)
-            resultsContainer.append("Humidity: ")
-            resultsContainer.append(humidity)
+            windSpeed.textContent = data.list[i].wind.speed;
+            humidity.textContent = data.list[i].main.humidity;
+            //appending elements to the weather container div
+            weatherContainer.appendChild(date);
+            //weatherContainer.appendChild(icon);
+            weatherContainer.appendChild(temperature);
+            weatherContainer.appendChild(windSpeed);
+            weatherContainer.appendChild(humidity);
+            //append the weather container div to results container
+            resultsContainer.appendChild(weatherContainer);
         }
                 
      });
