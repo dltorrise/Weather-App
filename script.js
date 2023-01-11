@@ -13,6 +13,7 @@ var cityInput = document.getElementById("city")
 var resultsContainer = document.getElementById("results")
 var fiveDayContainer = document.getElementById("five-day")
 var searchHistory = document.getElementById("search-history")
+var todayWeather = document.getElementById("today-weather")
 
 
 //variables
@@ -42,7 +43,6 @@ function getCurrentWeather(city) {
         //the temperature, the humidity, and the wind speed
         console.log(data)
                 //Creating elements
-                var cityName = document.createElement('h3');
                 //var icon = document.createElement('img');
                 //icon.classList.add("icon") //add icon class
                 var temperature = document.createElement('p');
@@ -50,8 +50,9 @@ function getCurrentWeather(city) {
                 var windSpeed = document.createElement('p');
     
                 //Setting the text of the h3 element and p element.
-                cityName.textContent = city
-                cityName.classList.add("h4")
+                todayWeather.innerHTML = ''
+                todayWeather.innerHTML = "Today's weather in " + city
+                todayWeather.classList.add("text-center")
                 //iconName = data.weather.icon
                 //icon.setAttribute("style", "content: iconName")
                 //icon.src = `https://openweathermap.org/img/wn/${iconName}@2x.png`;
@@ -63,7 +64,6 @@ function getCurrentWeather(city) {
 
                 //appends onto screen
                 resultsContainer.classList.add("card", "container")
-                resultsContainer.append(city)
                 //resultsContainer.append(icon)
                 resultsContainer.append("Temperature: ")
                 resultsContainer.append(temperature)
@@ -122,12 +122,17 @@ function getFutureWeather(lat, lon) {
         var dayAfterTomorrow = today.add(2, 'day');
         var dayAfterThat = today.add(3, 'day')
         var andTheDayAfterThat = today.add(4, 'day')
-        var dates = [today.format('M-D-YY'), tomorrow.format('M-D-YY'), dayAfterTomorrow.format('M-D-YY'), dayAfterThat.format('M-D-YY'), andTheDayAfterThat.format('M-D-YY')] //maybe not the dryest method
+        var dates = [today.format('MMM D'), tomorrow.format('MMM D'), dayAfterTomorrow.format('MMM D'), dayAfterThat.format('MMM D'), andTheDayAfterThat.format('MMM D')] //maybe not the dryest method
         console.log(dates)
+        var fiveDayForecast = document.createElement('h3')
+        fiveDayForecast.innerHTML = ''
+        fiveDayForecast.innerHTML = "Five Day Forecast"
+        fiveDayForecast.classList.add("text-center")
+        fiveDayContainer.appendChild(fiveDayForecast)
         for (i=0; i<5; i++) {
             //Creating a weather container div
             var weatherContainer = document.createElement('div');
-            weatherContainer.classList.add("card", "row", "col-md-6")
+            weatherContainer.classList.add("card", "col-md-6", "text-center")
             //Creating elements
             var date = document.createElement('h5');
             var icon = document.createElement('img');
@@ -145,8 +150,17 @@ function getFutureWeather(lat, lon) {
             //appending elements to the weather container div
             weatherContainer.appendChild(date);
             //weatherContainer.appendChild(icon);
+            var tempText = document.createElement('p')
+            tempText.textContent = "Temperature: "
+            weatherContainer.appendChild(tempText)
             weatherContainer.appendChild(temperature);
+            var windText = document.createElement('p')
+            windText.textContent = "Wind Speed: "
+            weatherContainer.appendChild(windText)
             weatherContainer.appendChild(windSpeed);
+            var humidityText = document.createElement('p')
+            humidityText.textContent = "Humidity: "
+            weatherContainer.appendChild(humidityText)
             weatherContainer.appendChild(humidity);
             //append the weather container div to results container
             fiveDayContainer.appendChild(weatherContainer);
