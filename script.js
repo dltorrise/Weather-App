@@ -85,11 +85,11 @@ function getCurrentWeather(city) {
                 //appends onto screen
                 resultsContainer.classList.add("card", "container")
                 //resultsContainer.append(icon)
-                resultsContainer.append("Temperature: ")
+                resultsContainer.append("Temperature (°F): ")
                 resultsContainer.append(temperature)
-                resultsContainer.append("Wind Speed: ")
+                resultsContainer.append("Wind Speed (MPH): ")
                 resultsContainer.append(windSpeed)
-                resultsContainer.append("Humidity: ")
+                resultsContainer.append("Humidity (%): ")
                 resultsContainer.append(humidity)
                 
                 //future weather function
@@ -134,7 +134,7 @@ function getFutureWeather(lat, lon) {
     fetch(fiveDayUrl)
     .then(function (response) {
         return response.json()
-     }) .then(function (data) {
+     }) .then(function (data, icon) {
         console.log(data)
         var today = dayjs()
         var tomorrow = today.add(1, 'day');
@@ -142,14 +142,14 @@ function getFutureWeather(lat, lon) {
         var dayAfterTomorrow = today.add(2, 'day');
         var dayAfterThat = today.add(3, 'day')
         var andTheDayAfterThat = today.add(4, 'day')
-        var dates = [today.format('MMM D'), tomorrow.format('MMM D'), dayAfterTomorrow.format('MMM D'), dayAfterThat.format('MMM D'), andTheDayAfterThat.format('MMM D')] //maybe not the dryest method
+        var dates = [tomorrow.format('MMM D'), dayAfterTomorrow.format('MMM D'), dayAfterThat.format('MMM D'), andTheDayAfterThat.format('MMM D')] //maybe not the dryest method
         console.log(dates)
         var fiveDayForecast = document.createElement('h3')
         fiveDayForecast.innerHTML = ''
-        fiveDayForecast.innerHTML = "Five Day Forecast"
+        fiveDayForecast.innerHTML = "Next Four Days"
         fiveDayForecast.classList.add("text-center")
         fiveDayContainer.appendChild(fiveDayForecast)
-        for (i=0; i<5; i++) {
+        for (i=0; i<4; i++) {
             //Creating a weather container div
             var weatherContainer = document.createElement('div');
             weatherContainer.classList.add("card", "col-md-6", "text-center")
@@ -162,24 +162,25 @@ function getFutureWeather(lat, lon) {
             var windSpeed = document.createElement('p');
             //setting the text of the h3 element and p element.
             date.textContent = dates[i];
-            //iconName = data.list.weather[3]
-            //icon.src = `https://openweathermap.org/img/wn/${iconName}.png`
+            icon = data.list[i].weather[0].icon
+            console.log(icon)
+            icon.src = `https://openweathermap.org/img/wn/${icon}.png`
             temperature.textContent = data.list[i].main.temp;
             windSpeed.textContent = data.list[i].wind.speed;
             humidity.textContent = data.list[i].main.humidity;
             //appending elements to the weather container div
             weatherContainer.appendChild(date);
-            //weatherContainer.appendChild(icon);
+            weatherContainer.append(icon);
             var tempText = document.createElement('p')
-            tempText.textContent = "Temperature: "
+            tempText.textContent = "Temperature (°F): "
             weatherContainer.appendChild(tempText)
             weatherContainer.appendChild(temperature);
             var windText = document.createElement('p')
-            windText.textContent = "Wind Speed: "
+            windText.textContent = "Wind Speed (MPH): "
             weatherContainer.appendChild(windText)
             weatherContainer.appendChild(windSpeed);
             var humidityText = document.createElement('p')
-            humidityText.textContent = "Humidity: "
+            humidityText.textContent = "Humidity (%): "
             weatherContainer.appendChild(humidityText)
             weatherContainer.appendChild(humidity);
             //append the weather container div to results container
@@ -199,7 +200,6 @@ function handleSearchSubmit(event) {
         var city = cityInput.value.trim() //searchInput is an HTML element and so .value is input
         //.trim bc white space can sometimes mess up databases
         getCurrentWeather(city) //calls function as city as parameter
-        //getFutureWeather(lat, lon)
         cityInput.value = '' //clears search box by creating empty string
     }
 }
