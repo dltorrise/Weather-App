@@ -5,6 +5,26 @@
 //formatting
 //readme
 
+//just for fun
+
+window.onload = function(){
+    var originalTitle = document.title;
+    var animatedTitles = ['☀', '☁', '☔', '⚡', '❄'];
+    var index = 0;
+document.title = animatedTitles[index] + originalTitle + ' ' + animatedTitles[index];
+    index++;
+setInterval(
+      function(){
+        document.title = animatedTitles[index]+ originalTitle + ' ' + animatedTitles[index];
+        index++;
+        if(index == animatedTitles.length){
+          index = 0;
+        }
+      },
+      500
+    );
+  }
+
 //DOM elements
 
 var apiKey = "9ffe19106208ff88d659686f2e903261"
