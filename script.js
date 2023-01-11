@@ -63,8 +63,9 @@ function getCurrentWeather(city) {
         //the temperature, the humidity, and the wind speed
         console.log(data)
                 //Creating elements
-                //var icon = document.createElement('img');
-                //icon.classList.add("icon") //add icon class
+                var icon1 = document.createElement('img');
+                var weatherDescription = document.createElement('p')
+                icon1.classList.add("icon-one") //to make this one bigger
                 var temperature = document.createElement('p');
                 var humidity = document.createElement('p');
                 var windSpeed = document.createElement('p');
@@ -73,9 +74,9 @@ function getCurrentWeather(city) {
                 todayWeather.innerHTML = ''
                 todayWeather.innerHTML = "Today's weather in " + city
                 todayWeather.classList.add("text-center")
-                //iconName = data.weather.icon
-                //icon.setAttribute("style", "content: iconName")
-                //icon.src = `https://openweathermap.org/img/wn/${iconName}@2x.png`;
+                let {icon, description} = data.weather[0]
+                icon1.src = "https://openweathermap.org/img/wn/"+ icon + ".png"
+                weatherDescription.textContent = description
                 temperature.textContent = data.main.temp;
                 windSpeed.textContent = data.wind.speed
                 humidity.textContent = data.main.humidity
@@ -85,6 +86,8 @@ function getCurrentWeather(city) {
                 //appends onto screen
                 resultsContainer.classList.add("card", "container")
                 //resultsContainer.append(icon)
+                resultsContainer.append(icon1)
+                resultsContainer.append(weatherDescription)
                 resultsContainer.append("Temperature (°F): ")
                 resultsContainer.append(temperature)
                 resultsContainer.append("Wind Speed (MPH): ")
@@ -120,7 +123,6 @@ function showSearchHistory() {
         }
         var nameOfCity = document.createElement('li')
         nameOfCity.classList.add("list-group-item")
-        //nameOfCity.setAttribute("style", "list-style-type: circle")
         nameOfCity.addEventListener("click", buttonClickHandler)
         nameOfCity.textContent = histoire[i]
         nameOfCity.setAttribute('data-city', histoire[i])
@@ -155,22 +157,24 @@ function getFutureWeather(lat, lon) {
             weatherContainer.classList.add("card", "col-md-6", "text-center")
             //Creating elements
             var date = document.createElement('h5');
-            var icon = document.createElement('img');
-            icon.classList.add("icon") //add icon class
+            var weatherDescription = document.createElement('p')
+            var icon1 = document.createElement('img');
             var temperature = document.createElement('p');
             var humidity = document.createElement('p');
             var windSpeed = document.createElement('p');
             //setting the text of the h3 element and p element.
             date.textContent = dates[i];
-            icon = data.list[i].weather[0].icon
-            console.log(icon)
-            icon.src = `https://openweathermap.org/img/wn/${icon}.png`
+            console.log(weatherDescription)
+            let {icon, description} = data.list[i].weather[0]
+            icon1.src = "https://openweathermap.org/img/wn/"+ icon + ".png"
             temperature.textContent = data.list[i].main.temp;
             windSpeed.textContent = data.list[i].wind.speed;
             humidity.textContent = data.list[i].main.humidity;
+            weatherDescription.textContent = description
             //appending elements to the weather container div
             weatherContainer.appendChild(date);
-            weatherContainer.append(icon);
+            weatherContainer.append(icon1);
+            weatherContainer.appendChild(weatherDescription)
             var tempText = document.createElement('p')
             tempText.textContent = "Temperature (°F): "
             weatherContainer.appendChild(tempText)
