@@ -1,25 +1,32 @@
 
+//things left to do 
+//getting the search results to work correctly
+//rendering the icon
+//formatting
+
+//DOM elements
 
 var apiKey = "9ffe19106208ff88d659686f2e903261"
-var getWeatherBtn = document.getElementById("user-form")
-//when you have a form with submit inside you have to put event listener on form
-var cityInput = document.getElementById("city")
-//template literal so you dont have to concatenate
+var getWeatherBtn = document.getElementById("user-form") //when you have a form with submit inside you have to put event listener on form
+var cityInput = document.getElementById("city") //template literal so you dont have to concatenate
 var resultsContainer = document.getElementById("results")
 var fiveDayContainer = document.getElementById("five-day")
 var searchHistory = document.getElementById("search-history")
 
+//histoire is the french word for history. I cannot use history bc apparently
+//it is a keyword in the console
+
+//variables
+
 let histoire = JSON.parse(localStorage.getItem("searchHistory")) //makes an array
 
 if (histoire===null) {
-    histoire = []
+    histoire = [] //makes sure we only create an empty array if nothing is there
 }
 
 console.log(histoire)
 
-console.log('Hello')
-
-
+//functions
 
 function getCurrentWeather(city) {
     console.log(city)
@@ -76,8 +83,6 @@ function getCurrentWeather(city) {
 
         });
 };
-
-showSearchHistory()
 
 
 function showSearchHistory() {
@@ -160,16 +165,14 @@ var buttonClickHandler = function (event) {
     getCurrentWeather(pastResult)
   };
 
+
+//event listeners
+
 getWeatherBtn.addEventListener("submit", handleSearchSubmit) //button inside of form needs to be submit
 searchHistory.addEventListener("click", buttonClickHandler)
 
-/*user is searching for city, give current data, give 5 day forecast, save their
-search history as buttons, let them click buttons to go back to see weather again */
 
-//main issues
-//getting the search results to work correctly
-//rendering the icon
+//function calls 
+showSearchHistory()
 
-//easy stuff (though potentially time consuming)
-//rendering five day results
-//formatting
+
