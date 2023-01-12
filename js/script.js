@@ -1,6 +1,10 @@
-//In terms of the MVP, everything is good except for the search
-//I also want to do some work on the formatting though
-//organize folders and read me 
+//I wish I could format the Search History and the 4-day forecast better
+//make position of search history fixed and a bit further from margin
+//add outline to search history
+//change sizes of boxes
+// make Today bigger
+//make weather capital
+//make dates days of week
 
 //just for fun
 
@@ -73,6 +77,7 @@ function getCurrentWeather(city) {
                 let {icon, description} = data.weather[0]
                 icon1.src = "https://openweathermap.org/img/wn/"+ icon + ".png"
                 weatherDescription.textContent = description
+                weatherDescription.classList.add("text-uppercase")
                 weatherDescription.classList.add("mb-3")
                 temperature.textContent = data.main.temp;
                 windSpeed.textContent = data.wind.speed
@@ -168,6 +173,7 @@ function getFutureWeather(lat, lon) {
             windSpeed.textContent = data.list[i].wind.speed;
             humidity.textContent = data.list[i].main.humidity;
             weatherDescription.textContent = description
+            weatherDescription.classList.add("text-uppercase")
             //appending elements to the weather container div
             weatherContainer.appendChild(date);
             weatherContainer.append(icon1);

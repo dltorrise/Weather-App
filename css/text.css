@@ -12,3 +12,9 @@ img {
 li:hover {
     cursor:grab;
 }
+
+/*not working*/
+.icon-one {
+    max-width: 200px;
+    max-height: 200px;
+}
