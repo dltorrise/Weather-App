@@ -82,7 +82,7 @@ function getCurrentWeather(city) {
                 console.log(temperature);
 
                 //appends onto screen
-                resultsContainer.classList.add("card", "container")
+                resultsContainer.classList.add("card", "container", "bg-primary", "text-white")
                 resultsContainer.innerHTML = '' //clears it out every single time
                 //resultsContainer.append(icon)
                 resultsContainer.append(icon1)
@@ -117,7 +117,7 @@ function getCurrentWeather(city) {
 
 function showSearchHistory() {
     searchHistory.textContent = "Search History"
-    searchHistory.classList.add("h5", ".text-primary")
+    searchHistory.classList.add("h5", "bg-primary", "text-white")
     var listOfCities = document.createElement('ul') //creates box for list
     searchHistory.appendChild(listOfCities) //appends it to search container
     for (i=0; i<histoire.length; i++) {
@@ -157,7 +157,7 @@ function getFutureWeather(lat, lon) {
         for (i=0; i<4; i++) {
             //Creating a weather container div
             var weatherContainer = document.createElement('div');
-            weatherContainer.classList.add("card", "col-md-6", "text-center")
+            weatherContainer.classList.add("card", "col-md-6", "text-center", "bg-primary", "text-white")
             //Creating elements
             var date = document.createElement('h5');
             var weatherDescription = document.createElement('i')
