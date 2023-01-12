@@ -50,6 +50,8 @@ console.log(histoire)
 
 function getCurrentWeather(city) {
     console.log(city)
+    resultsContainer.innerHTML = ''
+    fiveDayContainer.innerHTML = ''
     var currentWeather = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${city}&units=imperial`
     fetch(currentWeather) //returns response
     .then(function (response) {
