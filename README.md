@@ -13,3 +13,8 @@ Screenshot:
 
 Sometimes the API's take about 20 seconds to load. Keep this in mind when testing. 
 
+## Acknowledgements
+
+I was able to animate my title using the help of Andreas Zettl's article on javascript.plainenglish.io
+
+[Link](https://javascript.plainenglish.io/animate-your-website-title-with-unicode-emoji-characters-d4aa35fb0eeb)
