@@ -74,6 +74,7 @@ function getCurrentWeather(city) {
                 let {icon, description} = data.weather[0]
                 icon1.src = "https://openweathermap.org/img/wn/"+ icon + ".png"
                 weatherDescription.textContent = description
+                weatherDescription.classList.add("mb-3")
                 temperature.textContent = data.main.temp;
                 windSpeed.textContent = data.wind.speed
                 humidity.textContent = data.main.humidity
@@ -160,7 +161,7 @@ function getFutureWeather(lat, lon) {
             //Creating elements
             var date = document.createElement('h5');
             var weatherDescription = document.createElement('i')
-            weatherDescription.classList.add("mb-1") //trying to add a lower margin
+            weatherDescription.classList.add("mb-3") //add lower margin
             var icon1 = document.createElement('img');
             var temperature = document.createElement('p');
             var humidity = document.createElement('p');
