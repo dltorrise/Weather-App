@@ -18,7 +18,7 @@ setInterval(
           index = 0;
         }
       },
-      500
+      1000
     );
   }
 
@@ -50,8 +50,6 @@ console.log(histoire)
 
 function getCurrentWeather(city) {
     console.log(city)
-    resultsContainer.innerHTML = ''
-    fiveDayContainer.innerHTML = ''
     var currentWeather = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${city}&units=imperial`
     fetch(currentWeather) //returns response
     .then(function (response) {
@@ -84,6 +82,7 @@ function getCurrentWeather(city) {
 
                 //appends onto screen
                 resultsContainer.classList.add("card", "container")
+                resultsContainer.innerHTML = '' //clears it out every single time
                 //resultsContainer.append(icon)
                 resultsContainer.append(icon1)
                 resultsContainer.append(weatherDescription)
@@ -149,6 +148,7 @@ function getFutureWeather(lat, lon) {
         var andTheDayAfterThat = today.add(4, 'day')
         var dates = [tomorrow.format('MMM D'), dayAfterTomorrow.format('MMM D'), dayAfterThat.format('MMM D'), andTheDayAfterThat.format('MMM D')] //maybe not the dryest method
         console.log(dates)
+        fiveDayContainer.innerHTML = ''
         var fiveDayForecast = document.createElement('h3')
         fiveDayForecast.innerHTML = "Next Four Days"
         fiveDayForecast.classList.add("text-center")
@@ -199,6 +199,7 @@ function getFutureWeather(lat, lon) {
 
 function handleSearchSubmit(event) {
     resultsContainer.textContent = '' // clears out last weather
+    //fiveDayContainer.textContent = ''
     console.log('clicked')
     event.preventDefault() //event is deprecated under some circumstances, so e is preferred
     if (!cityInput.value) { //so that it doesn't do anything if there is no input
@@ -212,11 +213,11 @@ function handleSearchSubmit(event) {
 }
 
 var buttonClickHandler = function (event) {
-    var pastResult = event.target.getAttribute('data-city');
-    resultsContainer.textContent = ''
-    fiveDayContainer.textContent = ''
-    console.log(pastResult)
-    getCurrentWeather(pastResult)
+    if (event.target = document.querySelector('li')) {
+        var pastResult = event.target.getAttribute('data-city');
+        console.log(pastResult)
+        getCurrentWeather(pastResult)
+    } 
   };
 
 
