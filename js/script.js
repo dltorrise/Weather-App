@@ -161,7 +161,7 @@ function getFutureWeather(lat, lon) {
             var humidity = document.createElement('p');
             var windSpeed = document.createElement('p');
             //setting the text of the h3 element and p element.
-            date.textContent = dates[i];
+            date.textContent = dates[i/8];
             let {icon, description} = data.list[i].weather[0]
             icon1.src = "https://openweathermap.org/img/wn/"+ icon + ".png"
             temperature.textContent = data.list[i].main.temp;
