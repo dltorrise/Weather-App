@@ -44,12 +44,11 @@ if (histoire===null) {
     histoire = [] //makes sure we only create an empty array if nothing is there
 }
 
-console.log(histoire)
+
 
 //functions
 
 function getCurrentWeather(city) {
-    console.log(city)
     var currentWeather = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${city}&units=imperial`
     fetch(currentWeather) //returns response
     .then(function (response) {
@@ -79,12 +78,9 @@ function getCurrentWeather(city) {
                 windSpeed.textContent = data.wind.speed
                 humidity.textContent = data.main.humidity
 
-                console.log(temperature);
-
                 //appends onto screen
                 resultsContainer.classList.add("card", "container", "bg-primary", "text-white")
                 resultsContainer.innerHTML = '' //clears it out every single time
-                //resultsContainer.append(icon)
                 resultsContainer.append(icon1)
                 resultsContainer.append(weatherDescription)
                 resultsContainer.append("Temperature (°F): ")
@@ -100,8 +96,6 @@ function getCurrentWeather(city) {
                 getFutureWeather(lat, lon)
 
                 //local storage
-                console.log(typeof histoire)
-                console.log(histoire)
                  // pushes city into array don't have to reassign them bc mutable
                 console.log(typeof histoire) // will always say it's object if it's an array
                 if (histoire.includes(city)){
@@ -129,7 +123,6 @@ function showSearchHistory() {
         nameOfCity.addEventListener("click", buttonClickHandler)
         nameOfCity.textContent = histoire[i]
         nameOfCity.setAttribute('data-city', histoire[i])
-        console.log(nameOfCity.getAttribute('data-city'))
         listOfCities.appendChild(nameOfCity)
     }
 }
@@ -154,8 +147,9 @@ function getFutureWeather(lat, lon) {
         fiveDayForecast.innerHTML = "Next Four Days"
         fiveDayForecast.classList.add("text-center")
         fiveDayContainer.appendChild(fiveDayForecast)
-        for (i=0; i<4; i++) {
+        for (i=0; i<25; i+=8) { //iterates through every 8 elements bc array from this website returns every 3 hours
             //Creating a weather container div
+            console.log(i)
             var weatherContainer = document.createElement('div');
             weatherContainer.classList.add("card", "col-md-6", "text-center", "bg-primary", "text-white")
             //Creating elements
@@ -168,7 +162,6 @@ function getFutureWeather(lat, lon) {
             var windSpeed = document.createElement('p');
             //setting the text of the h3 element and p element.
             date.textContent = dates[i];
-            console.log(weatherDescription)
             let {icon, description} = data.list[i].weather[0]
             icon1.src = "https://openweathermap.org/img/wn/"+ icon + ".png"
             temperature.textContent = data.list[i].main.temp;
@@ -201,7 +194,6 @@ function getFutureWeather(lat, lon) {
 function handleSearchSubmit(event) {
     resultsContainer.textContent = '' // clears out last weather
     //fiveDayContainer.textContent = ''
-    console.log('clicked')
     event.preventDefault() //event is deprecated under some circumstances, so e is preferred
     if (!cityInput.value) { //so that it doesn't do anything if there is no input
         return
@@ -216,7 +208,6 @@ function handleSearchSubmit(event) {
 var buttonClickHandler = function (event) {
     if (event.target = document.querySelector('li')) {
         var pastResult = event.target.getAttribute('data-city');
-        console.log(pastResult)
         getCurrentWeather(pastResult)
     } 
   };

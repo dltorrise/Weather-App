@@ -8,3 +8,7 @@ img {
     max-height: min-content;
     align-self: center;
 }
+
+li:hover {
+    cursor:grab;
+}
