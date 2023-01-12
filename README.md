@@ -5,8 +5,9 @@ In this app, you can check the weather of any city! It also provides a forecast 
 ## Link and Screenshot
 
 [Link](https://dltorrise.github.io/Weather-App/)
+
 Screenshot:
-[Screenshot](./images/screenshot.png)
+![Screenshot](./images/screenshot.png)
 
 ## FYI
 
