@@ -145,7 +145,7 @@ function getFutureWeather(lat, lon) {
         var dayAfterTomorrow = today.add(2, 'day');
         var dayAfterThat = today.add(3, 'day')
         var andTheDayAfterThat = today.add(4, 'day')
-        var dates = [tomorrow.format('MMM D'), dayAfterTomorrow.format('MMM D'), dayAfterThat.format('MMM D'), andTheDayAfterThat.format('MMM D')] //maybe not the dryest method
+        var dates = ["Tomorrow", dayAfterTomorrow.format('dddd'), dayAfterThat.format('dddd'), andTheDayAfterThat.format('dddd')] //maybe not the dryest method
         console.log(dates)
         fiveDayContainer.innerHTML = ''
         var fiveDayForecast = document.createElement('h3')
@@ -167,6 +167,7 @@ function getFutureWeather(lat, lon) {
             var windSpeed = document.createElement('p');
             //setting the text of the h3 element and p element.
             date.textContent = dates[i/8];
+            date.classList.add("mt-2")
             let {icon, description} = data.list[i].weather[0]
             icon1.src = "https://openweathermap.org/img/wn/"+ icon + ".png"
             temperature.textContent = (((data.list[i].main.temp)-273.15)*(9/5) +32).toFixed(2)
