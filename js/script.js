@@ -169,7 +169,7 @@ function getFutureWeather(lat, lon) {
             date.textContent = dates[i/8];
             let {icon, description} = data.list[i].weather[0]
             icon1.src = "https://openweathermap.org/img/wn/"+ icon + ".png"
-            temperature.textContent = data.list[i].main.temp;
+            temperature.textContent = (((data.list[i].main.temp)-273.15)*(9/5) +32).toFixed(2)
             windSpeed.textContent = data.list[i].wind.speed;
             humidity.textContent = data.list[i].main.humidity;
             weatherDescription.textContent = description
