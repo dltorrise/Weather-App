@@ -18,3 +18,9 @@ li:hover {
     max-width: 200px;
     max-height: 200px;
 }
+
+@media (max-width: 690px) {
+    #search-history {
+        display: none;
+    }
+}
