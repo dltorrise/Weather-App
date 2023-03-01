@@ -1,6 +1,6 @@
 # Weather App
 
-In this app, you can check the weather of any city! It also provides a forecast of the next five days. I utilize bootstrap 5 for my design. There is also a search history function that will save your search history in local storage. You can click on past searches to quickly bring up old searches.  
+In this app, you can check the weather of any city! It also provides a forecast of the next five days. I utilize bootstrap 5 for my design. There is also a search history function that will save your search history in local storage. You can click on past searches to quickly bring up old searches. Note: the local storage feature is not available on mobile at this time. 
 
 ## Link and Screenshot
 
